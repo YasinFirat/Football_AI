@@ -9,9 +9,10 @@ public struct Movement
     [Range(0,10)]
     public float speedJump;
 
-    public void CharacterMove(Transform transform,float frameTime)
+    public void CharacterMove(Transform transform,Vector3 target,float frameTime)
     {
-        transform.position += Vector3.forward*10* frameTime;
+        //transform.localPosition += Vector3.forward*10* frameTime;
+        transform.position= Vector3.MoveTowards(transform.position,target,speed*frameTime);
     }
 
    

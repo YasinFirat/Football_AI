@@ -7,11 +7,23 @@ public class Player : MonoBehaviour
 {
     public Movement movement;
     public Turn turn;
+    public Vector3 target;
 
     private void Start()
     {
-        transform.position = AIManager.Instance.placeRandomly.GetRandomPosition;
+        target = AIManager.Instance.placeRandomly.GetRandomPosition;
+        transform.position = target;
+        transform.LookAt(target);
     }
 
+    private void FixedUpdate()
+    {
+        movement.CharacterMove(transform,target,Time.fixedDeltaTime);
+        if (Vector3.Distance(transform.position, target) < 1)
+        {
+            target = AIManager.Instance.placeRandomly.GetRandomPosition;
+            transform.LookAt(target);
+        }
+    }
 
 }
