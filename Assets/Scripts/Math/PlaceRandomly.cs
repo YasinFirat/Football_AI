@@ -58,8 +58,7 @@ public class PlaceRandomly
             {
                 Calculate();
             }
-            Debug.Log("Distanceee : "+ Vector3.Distance(keepRandomPlace, new Vector3(scale.x,0,0)));
-            
+                     
             return keepRandomPlace;
         }
     }
