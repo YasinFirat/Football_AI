@@ -30,7 +30,7 @@ public class FindTargets : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        players.Remove(other.GetComponent<Player>());
+       // players.Remove(other.GetComponent<Player>());
         whenExit?.Invoke();
     }
     /// <summary>
@@ -67,23 +67,21 @@ public class FindTargets : MonoBehaviour
     /// <returns></returns>
     public Player GetClosestTarget()
     {
-        
-            for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < players.Count; i++)
+        {
+            distances.Add(Vector3.Distance(transform.position, players[i].transform.position));
+        }
+        keepId = 0;
+        keep = distances[0];
+        for (int i = 0; i < distances.Count; i++)
+        {
+            if (distances[i] < keep)
             {
-                distances.Add(Vector3.Distance(transform.position, players[i].transform.position));
+                keep = distances[i];
+                keepId = i;
             }
-            keepId = 0;
-            keep = distances[0];
-            for (int i = 0; i < distances.Count; i++)
-            {
-                if (distances[i] < keep)
-                {
-                    keep = distances[i];
-                    keepId = i;
-                }
-            }
-            return players[keepId];
-       
+        }
+        return players[keepId];
     }
 
 

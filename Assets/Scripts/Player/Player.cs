@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public Turn turn;
     public FindTargets findTargets;
     public Vector3 target;
-    private PlayerSettings playerSettings;
+    public PlayerSettings playerSettings;
     
     private void Start()
     {
@@ -24,6 +24,28 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (findTargets.isFindTarget)
+        {//hedef bulunduysa
+            if (findTargets.GetClosestTarget().playerSettings.haveBall)
+            { //en yakýn hedef topa sahip ise
+                if (!playerSettings.haveBall)
+                {//sen topa sahip deðilsen
+                    Debug.Log("Hedefe odaklan ve Kovala");
+                    target = findTargets.GetClosestTarget().transform.position;
+                    return;
+                }
+            }
+            else
+            { // en yakýn hedef topa sahip deðilse
+                if (playerSettings.haveBall)
+                {//sen topa sahipsen
+                    Debug.Log("Hedefe odaklan ve kaç");
+                    SearchNewTarget();
+                    return;
+                }
+            }
+            
+        }
         if (Vector3.Distance(transform.position, target) < 1)
         {
             SearchNewTarget();
@@ -32,10 +54,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         movement.CharacterMove(transform,target,Time.fixedDeltaTime);
-        if (!playerSettings.haveBall)
-        {
-            
-        }
+      
         
     }
 
