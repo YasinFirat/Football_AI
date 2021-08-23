@@ -53,23 +53,34 @@ public class PlaceRandomly
     {
         get
         {
-            keepRandomPlace = new Vector3(GetRandom(orgin.x, scale.x), GetRandom(orgin.y, scale.y), GetRandom(orgin.z, scale.z));
-            //istenilen düzlemde daðýlým yapýlabilir.
-            switch (ignoreAxis)
+            Calculate();
+            while (Vector3.Distance(keepRandomPlace,orgin+offset)>scale.x/2)
             {
-                case Axis.X_Axis:
-                    keepRandomPlace.x = orgin.x + offset.x;
-                    break;
-                case Axis.Y_Axis:
-                    keepRandomPlace.y = orgin.y + offset.y;
-                    break;
-                case Axis.Z_Axis:
-                    keepRandomPlace.z = orgin.z + offset.z;
-                    break;
-                default:
-                    break;
+                Calculate();
             }
+            Debug.Log("Distanceee : "+ Vector3.Distance(keepRandomPlace, new Vector3(scale.x,0,0)));
+            
             return keepRandomPlace;
+        }
+    }
+
+    private void Calculate()
+    {
+        keepRandomPlace = new Vector3(GetRandom(orgin.x, scale.x), GetRandom(orgin.y, scale.y), GetRandom(orgin.z, scale.z));
+        //istenilen düzlemde daðýlým yapýlabilir.
+        switch (ignoreAxis)
+        {
+            case Axis.X_Axis:
+                keepRandomPlace.x = orgin.x + offset.x;
+                break;
+            case Axis.Y_Axis:
+                keepRandomPlace.y = orgin.y + offset.y;
+                break;
+            case Axis.Z_Axis:
+                keepRandomPlace.z = orgin.z + offset.z;
+                break;
+            default:
+                break;
         }
     }
     /// <summary>
@@ -82,6 +93,7 @@ public class PlaceRandomly
     {//Bir alan içerisinde rastgele deðerler atanmasýný istediðinizde koordinat sisteminde
         // baþlangýç noktasý ile uzunluðun yarýsýný toplamanýz veya çýkarmanýz yeterli olacaktýr.
         // 2.5 ile bölme nedenim daðýlýmýn tam sýnýr noktasýna eriþimini engellemektir.
+
         return Random.Range(orginAxis - scaleAxis / 2.5f, orginAxis + scaleAxis / 2.5f);
     }
 
