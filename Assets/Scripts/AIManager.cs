@@ -12,11 +12,6 @@ public struct PlayerSettings
     [Tooltip("Oyuncunun dönme hýzý")]
     [Range(0, 20)]
     public float turnSpeed;
-
-    [Tooltip("Eðer bir topa/nesneye sahip ise true döndürür")]
-    public bool haveBall;
-    
-   
 }
 public class AIManager : MonoBehaviour
 {

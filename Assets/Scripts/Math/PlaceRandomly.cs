@@ -25,27 +25,21 @@ public class PlaceRandomly
     [Tooltip("orgin noktasý (orta nokta olarak seçilmeli)")]
     public Vector3 orgin;
     [Tooltip("Uzunluk deðerleri( Plane üzerinde oluþturmak için plane scale deðerinin 10 katýný giriniz.)")]
-    public Vector3 scale;
+    public float radius;
     [Tooltip("Sapma durumuna karþý (objelerin konumu orta noktalarýndan referans alýndýðýndan dolayý birazcýk yukarý çekmek isteyebilirsiniz :) )")]
     public Vector3 offset;
     [Tooltip("Hangi düzlemde rastgele deðer üretilmesini istiyorsanýz o düzlemi seçiniz.")]
     public Axis ignoreAxis;
     private Vector3 keepRandomPlace;
     private PlaceRandomly() { }
-    public PlaceRandomly(Vector3 orgin, Vector3 scale, Vector3 offset, Axis ignoreAxis)
+    public PlaceRandomly(Vector3 orgin, float radius, Vector3 offset, Axis ignoreAxis)
     {
         this.orgin = orgin;
-        this.scale = scale;
+        this.radius = radius;
         this.offset = offset;
         this.ignoreAxis = ignoreAxis;
     }
-    public PlaceRandomly(Transform _transform, Vector3 offset, Axis ignoreAxis)
-    {
-        this.orgin = _transform.position;
-        this.scale = _transform.localScale;
-        this.offset = offset;
-        this.ignoreAxis = ignoreAxis;
-    }
+   
     /// <summary>
     /// Eðer orgin ve scale deðeri girildiyse rastgele konum oluþturur.
     /// </summary>
@@ -54,7 +48,7 @@ public class PlaceRandomly
         get
         {
             Calculate();
-            while (Vector3.Distance(keepRandomPlace,orgin+offset)>scale.x/2)
+            while (Vector3.Distance(keepRandomPlace,orgin+offset)>radius/2)
             {
                 Calculate();
             }
@@ -62,10 +56,17 @@ public class PlaceRandomly
             return keepRandomPlace;
         }
     }
-
+    /// <summary>
+    /// Eðer girilen deðer alan dýþýnda ise false döndürür.
+    /// </summary>
+    /// <returns></returns>
+    public bool Over(Vector3 transformPosition)
+    {
+        return Vector3.Distance(transformPosition, orgin + offset) > radius / 2;
+    }
     private void Calculate()
     {
-        keepRandomPlace = new Vector3(GetRandom(orgin.x, scale.x), GetRandom(orgin.y, scale.y), GetRandom(orgin.z, scale.z));
+        keepRandomPlace = new Vector3(GetRandom(orgin.x, radius), GetRandom(orgin.y, radius), GetRandom(orgin.z, radius));
         //istenilen düzlemde daðýlým yapýlabilir.
         switch (ignoreAxis)
         {

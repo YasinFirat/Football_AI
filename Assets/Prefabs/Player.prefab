@@ -1,5 +1,78 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2302787214204946619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4955103351318208598}
+  - component: {fileID: 5869001082499961270}
+  - component: {fileID: 6602759827694553057}
+  m_Layer: 7
+  m_Name: AttackCollider
+  m_TagString: Attack
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4955103351318208598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2302787214204946619}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5869001082799910348}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5869001082499961270
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2302787214204946619}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.6
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6602759827694553057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2302787214204946619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7032a9935997d9d4ca47d2f6e4ac12f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tag: Attack
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5869001082799910336}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: ChangeStatues
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2614473758162051563
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,8 +84,8 @@ GameObject:
   - component: {fileID: 1716588344014916770}
   - component: {fileID: 3890009803620421651}
   - component: {fileID: 4018625882512442051}
-  m_Layer: 0
-  m_Name: Sphere
+  m_Layer: 7
+  m_Name: FindTargetCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b62194559fe773343ba6bfeb6bc17d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distances: []
   players: []
 --- !u!1 &5869001082799910343
 GameObject:
@@ -72,7 +146,7 @@ GameObject:
   - component: {fileID: 5869001082799910337}
   - component: {fileID: 5869001082799910336}
   - component: {fileID: 5869001082799910350}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +165,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1716588344014916770}
+  - {fileID: 4955103351318208598}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -172,13 +247,19 @@ MonoBehaviour:
   movement:
     speed: 1
     speedJump: 0
+  playerStatues:
+    fugitive: {fileID: 2100000, guid: dfb91611b6ecfcc428b5b120c0baa4e4, type: 2}
+    fugitiveLayer: Fugitive
+    chaser: {fileID: 2100000, guid: c8d86045486778346a3f74c7c7eedd43, type: 2}
+    chaserLayer: Chaser
+    haveBall: 1
   playerSettings:
-    speed: 0
+    speed: 4.6
     turnSpeed: 0
-    haveBall: 0
   findTargets: {fileID: 4018625882512442051}
   target: {x: 0, y: 0, z: 0}
   isFollowEnemy: 0
+  enemy: {fileID: 0}
 --- !u!54 &5869001082799910350
 Rigidbody:
   m_ObjectHideFlags: 0

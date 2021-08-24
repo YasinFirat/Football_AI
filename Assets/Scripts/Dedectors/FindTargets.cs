@@ -6,9 +6,9 @@ using UnityEngine.Events;
 //Ýstenilen hedefi bulur.
 public class FindTargets : MonoBehaviour
 {
-    
-   
-    private List<float> distances;
+
+
+    public List<float> distances = new List<float>();
     private float keep;
     private int keepId = 0;
     public List<Player> players;
@@ -19,11 +19,11 @@ public class FindTargets : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        players.Add(other.GetComponent<Player>());
+        players.Add(other.GetComponentInParent<Player>());
     }
     private void OnTriggerExit(Collider other)
     {
-        players.Remove(other.GetComponent<Player>());
+        players.Remove(other.GetComponentInParent<Player>());
     }
     /// <summary>
     /// Hedef bulundu mu? 
@@ -59,6 +59,7 @@ public class FindTargets : MonoBehaviour
     /// <returns></returns>
     public Player GetClosestTarget()
     {
+        ClearDistance();
         for (int i = 0; i < players.Count; i++)
         {
             distances.Add(Vector3.Distance(transform.position, players[i].transform.position));
@@ -77,7 +78,7 @@ public class FindTargets : MonoBehaviour
     }
     public void ClearDistance()
     {
-        distances = null;
+        distances = new List<float>() ;
     }
 
 
