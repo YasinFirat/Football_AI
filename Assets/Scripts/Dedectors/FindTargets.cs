@@ -12,26 +12,18 @@ public class FindTargets : MonoBehaviour
     private float keep;
     private int keepId = 0;
     public List<Player> players;
-    [Header("Events")]
-    [Tooltip("Trigger enter olduðunda tetiklenir.")]
-    public UnityEvent whenEnter;
-    [Tooltip("Trigger exit olduðunda tetiklenir.")]
-    public UnityEvent whenExit;
+   
+   
 
-    private void OnEnable()
-    {
-        whenEnter.AddListener(CheckTargets);
-    }
+   
     
     private void OnTriggerEnter(Collider other)
     {
         players.Add(other.GetComponent<Player>());
-        whenExit?.Invoke();
     }
     private void OnTriggerExit(Collider other)
     {
-       // players.Remove(other.GetComponent<Player>());
-        whenExit?.Invoke();
+        players.Remove(other.GetComponent<Player>());
     }
     /// <summary>
     /// Hedef bulundu mu? 
@@ -82,6 +74,10 @@ public class FindTargets : MonoBehaviour
             }
         }
         return players[keepId];
+    }
+    public void ClearDistance()
+    {
+        distances = null;
     }
 
 
