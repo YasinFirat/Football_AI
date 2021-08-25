@@ -246,16 +246,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement:
     speed: 1
-    speedJump: 0
+    turboSpeed: 0
   playerStatues:
     fugitive: {fileID: 2100000, guid: dfb91611b6ecfcc428b5b120c0baa4e4, type: 2}
     fugitiveLayer: Fugitive
     chaser: {fileID: 2100000, guid: c8d86045486778346a3f74c7c7eedd43, type: 2}
     chaserLayer: Chaser
-    haveBall: 1
+    haveBall: 0
   playerSettings:
     speed: 4.6
-    turnSpeed: 0
+    turnSpeed: 2.1
   findTargets: {fileID: 4018625882512442051}
   target: {x: 0, y: 0, z: 0}
   isFollowEnemy: 0

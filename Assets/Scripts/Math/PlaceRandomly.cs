@@ -24,11 +24,13 @@ public class PlaceRandomly
 {
     [Tooltip("orgin noktasý (orta nokta olarak seçilmeli)")]
     public Vector3 orgin;
-    [Tooltip("Uzunluk deðerleri( Plane üzerinde oluþturmak için plane scale deðerinin 10 katýný giriniz.)")]
-    public float radius;
+   
     [Tooltip("Sapma durumuna karþý (objelerin konumu orta noktalarýndan referans alýndýðýndan dolayý birazcýk yukarý çekmek isteyebilirsiniz :) )")]
     public Vector3 offset;
+    [Tooltip("Uzunluk deðerleri( Plane üzerinde oluþturmak için plane scale deðerinin 10 katýný giriniz.)")]
+    public float radius;
     [Tooltip("Hangi düzlemde rastgele deðer üretilmesini istiyorsanýz o düzlemi seçiniz.")]
+
     public Axis ignoreAxis;
     private Vector3 keepRandomPlace;
     private PlaceRandomly() { }

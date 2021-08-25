@@ -15,6 +15,7 @@ public class PlayerStatues
     public string chaserLayer;
 
     [Header("Topa sahiplik durumu")]
+    [Space(50)]
     public bool haveBall;
     /// <summary>
     /// Duruma göre material get edilir

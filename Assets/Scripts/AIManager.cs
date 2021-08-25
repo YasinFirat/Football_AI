@@ -20,7 +20,7 @@ public class AIManager : MonoBehaviour
     public PlaceRandomly placeRandomly;
     [Space(10)]
     [Header("\t\t\t PLAYER SETTINGS")]
-    public PlayerSettings playerSettings;
+    public Movement movement;
     private void Awake()
     {
         if (Instance != null)

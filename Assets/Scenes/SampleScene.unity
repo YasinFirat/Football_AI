@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -227,12 +227,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeRandomly:
     orgin: {x: 0, y: 0, z: 0}
-    radius: 50
     offset: {x: 0, y: 1, z: 0}
+    radius: 50
     ignoreAxis: 1
-  playerSettings:
-    speed: 20
-    turnSpeed: 1.32
+  movement:
+    speed: 4
+    turboSpeed: 2.83
 --- !u!4 &146885643
 Transform:
   m_ObjectHideFlags: 0
@@ -638,6 +638,79 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1081055166
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2614473758162051563, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910336, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: isFollowEnemy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910336, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: playerSettings.speed
+      value: 4.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910343, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_Name
+      value: Player (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910343, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910348, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
 --- !u!1001 &1210197688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1064,8 +1137,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5869001082799910336, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
+      propertyPath: movement.turboSpeed
+      value: 2.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869001082799910336, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
       propertyPath: playerStatues.haveBall
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5869001082799910343, guid: dbb47da9bd724124abaabc6f3ede1026, type: 3}
       propertyPath: m_Name

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [HideInInspector]public Movement movement;
+    public Movement movement;
     public PlayerStatues playerStatues;
     public PlayerSettings playerSettings;
     
@@ -14,13 +14,13 @@ public class Player : MonoBehaviour
 
     public bool isFollowEnemy;
     public Player enemy;
-
+    
     private MeshRenderer meshRenderer;
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>(); 
-      //  playerSettings = AIManager.Instance.playerSettings;
-        movement.speed = playerSettings.speed;
+   
+        movement = AIManager.Instance.movement;
         SearchNewTarget();
         transform.position = target;
         ChangeStatues();
@@ -30,6 +30,10 @@ public class Player : MonoBehaviour
     {
         Debug.Log("CHANGESTATUES");
         playerStatues.ChangeBallStatue();
+        if (playerStatues.haveBall)
+        {
+            movement.StartTurbo();
+        }
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.layer= LayerMask.NameToLayer(playerStatues.getLayer);
@@ -39,7 +43,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-
+        movement.CheckTurbo(Time.deltaTime);
         if (findTargets.isFindTarget)
         {//düþman tespit edildiyse
             enemy = findTargets.GetClosestTarget();
