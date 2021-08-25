@@ -2,67 +2,72 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class PlayerStatues
+namespace FootballAI
 {
-    [Header("Kaçan Karakter Özellikleri")]
-    [Tooltip("Firari için collider")]
-    public Material fugitive;
-    public string fugitiveLayer;
-    [Header("Kovalayan Karakter Özellikleri")]
-    [Tooltip("Kovalayan için collider")]
-    public Material chaser;
-    public string chaserLayer;
+    [System.Serializable]
+    public class PlayerStatues
+    {
+        [Header("Kaçan Karakter Özellikleri")]
+        [Tooltip("Firari için collider")]
+        public Material fugitive;
+        public string fugitiveLayer;
+        [Header("Kovalayan Karakter Özellikleri")]
+        [Tooltip("Kovalayan için collider")]
+        public Material chaser;
+        public string chaserLayer;
 
-    [Header("Topa sahiplik durumu")]
-    [Space(50)]
-    public bool haveBall;
-    /// <summary>
-    /// Duruma göre material get edilir
-    /// </summary>
-    /// <returns></returns>
-    public Material getMaterial
-    {
-        get
+        [Header("Topa sahiplik durumu")]
+        [Space(50)]
+        public bool haveBall;
+        /// <summary>
+        /// Duruma göre material get edilir
+        /// </summary>
+        /// <returns></returns>
+        public Material getMaterial
         {
-            if (haveBall)
+            get
             {
-                return fugitive;
+                if (haveBall)
+                {
+                    return fugitive;
+                }
+                return chaser;
             }
-            return chaser;
+
         }
-        
-    }
-    /// <summary>
-    /// Duruma göre layer get eder.
-    /// </summary>
-    /// <returns></returns>
-    public string getLayer
-    {
-        get
+        /// <summary>
+        /// Duruma göre layer get eder.
+        /// </summary>
+        /// <returns></returns>
+        public string getLayer
         {
-           
-            if (haveBall)
+            get
             {
-                return fugitiveLayer;
+
+                if (haveBall)
+                {
+                    return fugitiveLayer;
+                }
+                return chaserLayer;
             }
-            return chaserLayer;
+
         }
-        
+        /// <summary>
+        /// Her çaðrýldýðýnda top tutma durumunu deðiþtirir.
+        /// </summary>
+        public PlayerStatues ChangeBallStatue()
+        {
+            haveBall = !haveBall;
+            return this;
+        }
+        /// <summary>
+        /// Top tutma durumunu deðiþtirir.
+        /// </summary>
+        /// <param name="haveBall"></param>
+        public void ChangeBallStatue(bool haveBall)
+        {
+            this.haveBall = haveBall;
+        }
     }
-    /// <summary>
-    /// Her çaðrýldýðýnda top tutma durumunu deðiþtirir.
-    /// </summary>
-    public void ChangeBallStatue()
-    {
-        haveBall = !haveBall;
-    }
-    /// <summary>
-    /// Top tutma durumunu deðiþtirir.
-    /// </summary>
-    /// <param name="haveBall"></param>
-    public void ChangeBallStatue(bool haveBall)
-    {
-        this.haveBall = haveBall;
-    }
+
 }

@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AttackDedector : MonoBehaviour
+
+namespace FootballAI
 {
-    public string tag="Attack";
-    public UnityEvent onEnter;
-    private void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// Ýki farklý grup temas ederse yapýlacaklar burada belirlenir.
+    /// </summary>
+    public class AttackDedector : MonoBehaviour
     {
-        if (other.CompareTag(tag))
+        [SerializeField]private string tagOfAttackTrigger = "Attack";
+        [SerializeField]private UnityEvent onEnter;
+        private void OnTriggerEnter(Collider other)
         {
-            onEnter?.Invoke();
+            if (other.CompareTag(tagOfAttackTrigger))
+            {
+                other.transform.SetParent(transform);
+               // onEnter?.Invoke();
+            }
         }
     }
+
 }

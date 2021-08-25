@@ -1,33 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct PlayerSettings
-{
-    [Tooltip("Oyuncularýn Hýzlarý")]
-    [Range(0,20)]
-    public float speed;
-   
-    [Tooltip("Oyuncunun dönme hýzý")]
-    [Range(0, 20)]
-    public float turnSpeed;
-}
-public class AIManager : MonoBehaviour
-{
-    public static AIManager Instance { get; private set; }
 
-    public PlaceRandomly placeRandomly;
-    [Space(10)]
-    [Header("\t\t\t PLAYER SETTINGS")]
-    public Movement movement;
-    private void Awake()
+namespace FootballAI
+{
+    public class AIManager : MonoBehaviour
     {
-        if (Instance != null)
+        public static AIManager Instance { get; private set; }
+        [Header("Random Create Points")]
+        [Tooltip("Rastgele bir alanda konum belirler.")]
+        public PlaceRandomly placeRandomly;
+
+        [Header("PLAYER SETTINGS")]
+        public Movement movement;
+        private void Awake()
         {
-            Destroy(this);
-            return;
+            if (Instance != null)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
         }
-        Instance = this;
     }
 }
+
