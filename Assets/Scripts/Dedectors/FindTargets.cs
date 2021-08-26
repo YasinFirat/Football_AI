@@ -5,18 +5,32 @@ using UnityEngine.Events;
 
 namespace FootballAI
 {
+   
     //Ýstenilen hedefi bulur.
     public class FindTargets : MonoBehaviour
     {
         private List<float> distances = new List<float>();
         private float keep;
         private int keepId = 0;
+       
         public List<Player> players;
+        public List<Ball> balls;
+        private Ball ball;
+        private int ballId;
         private Player player;
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Ball"))
+            {
+                ball = other.GetComponent<Ball>();
+                if (!balls.Contains(ball))
+                {
+                    balls.Add(ball);
+                }
                 return;
+            }
+              
+           
             player = other.GetComponentInParent<Player>();
             if (!players.Contains(player))
             {
@@ -26,9 +40,35 @@ namespace FootballAI
         }
         private void OnTriggerExit(Collider other)
         {
+            if (other.CompareTag("Ball"))
+            {
+                balls.Remove(other.GetComponent<Ball>());
+                return;
+            }
             players.Remove(other.GetComponentInParent<Player>());
-        }
 
+          
+        }
+        public bool isFindBall
+        {
+            get
+            {
+                for (int i = 0; i < balls.Count; i++)
+                {
+                    if (balls[i].firstCreate)
+                    {
+                        ballId = i;
+                        return true;
+                    }
+                }
+                balls = new List<Ball>();
+                return false;
+            }
+        }
+        public Ball GetBall()
+        {
+            return balls[ballId];
+        }
 
         /// <summary>
         /// Hedef bulundu mu? 
@@ -86,7 +126,7 @@ namespace FootballAI
         public void ClearAllData()
         {
             ClearDistance();
-            //players = new List<Player>();
+            
         }
     }
 

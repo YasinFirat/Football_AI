@@ -8,13 +8,13 @@ namespace FootballAI
     {
         public Movement movement;
         public PlayerStatues playerStatues;
-
+        public GrabTheBall grabTheBall;
 
         public FindTargets findTargets;
         public Vector3 target;
 
         public bool isFollowEnemy;
-        public Player enemy;
+        private Player enemy;
 
         private MeshRenderer meshRenderer;
         private void Start()
@@ -24,6 +24,7 @@ namespace FootballAI
             movement = AIManager.Instance.movement;
             SearchNewTarget();
             transform.position = target;
+            playerStatues.haveBall = grabTheBall.haveBall;
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(playerStatues.getLayer);
@@ -33,20 +34,23 @@ namespace FootballAI
             findTargets.ClearAllData();
 
         }
-        public void ChangeStatues()
-        {//attackDedector scriptinde event olarak çaðrýlmýþtýr.
-
-
-            if (movement.turbo.isWorkingTurbo || enemy.movement.turbo.isWorkingTurbo)
-            {
-                return;
-            }
-
-            //playerStatues.ChangeBallStatue();
-            if (playerStatues.ChangeBallStatue().haveBall)
+        /// <summary>
+        /// Topa sahiplik durumunu günceller.
+        /// </summary>
+        public void UpdateStatues()
+        {
+            if (grabTheBall.haveBall)
             {
                 movement.turbo.StartTurbo();
             }
+            CheckStatues();
+        }
+        /// <summary>
+        /// Aktif olarak sürekli topa sahiplik durumunu kontrol eder.
+        /// </summary>
+        private void CheckStatues()
+        {
+            playerStatues.haveBall = grabTheBall.haveBall;
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(playerStatues.getLayer);
@@ -56,14 +60,23 @@ namespace FootballAI
         }
         private void Update()
         {
+            CheckStatues(); //topa sahiplik durumunu kontrol et.
+
+
             if (AIManager.Instance.placeRandomly.Over(transform.position))
-            { //çember dýþýna çýkarsa geri döner.
-                SearchNewTarget();
+            { //çember dýþýna çýkarsa geri döner.(düzenle : dýþarýda saniye baþý sürekli yeni konum istiyor.)
+                target = AIManager.Instance.placeRandomly.orgin;
             }
             movement.turbo.CheckTurbo(Time.deltaTime); //turbo durumunu kontrol et
+            if (findTargets.isFindBall)
+            {
+                Debug.Log("ATA : SAHÝPLENMEMÝÞ TOP VAR");
+                target = findTargets.GetBall().transform.position;
+                return;
+            }
             if (findTargets.isFindTarget)
             {//düþman tespit edildiyse
-                enemy = findTargets.GetClosestTarget();
+                enemy = findTargets.GetClosestTarget(); //top'u gördüyse saldýrsýn
                 if (enemy.playerStatues.haveBall && !playerStatues.haveBall)
                 {//düþmanda top varsa ve sende yoksa kovala.
                     target = enemy.transform.position;
@@ -72,6 +85,7 @@ namespace FootballAI
                 else if (!enemy.playerStatues.haveBall && playerStatues.haveBall && !isFollowEnemy)
                 {//düþmanda top yoksa ve sende top varsa kaç
                     SearchNewTarget();
+                    Debug.Log("ATA : TOPU ALDIN KAÇ VEYA SUT CEKECEGÝN ALANA GÝT");
                     isFollowEnemy = true;
                     return;
                 }
